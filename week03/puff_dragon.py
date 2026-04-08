@@ -14,29 +14,30 @@ Learning Goals:
  the number of repetitions in advance (while).
 """
 
-def print_chorus(end_mark):
+def print_chorus():
     """
-    Prints the chorus of "Puff, the Magic Dragon" with a custom ending mark.
+    Prints the chorus of "Puff, the Magic Dragon" without ending mark.
 
     Parameters:
-        end_mark (str): The punctuation mark to end the second line (e.g.,
-         '.' or ',')
+        None
 
     Returns:
         None
     """
     print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee" +
-           end_mark)
+    print("And frolicked in the autumn mist in a land called Honah Lee", end="")
 
 def main():
-    print_chorus(",")
+    print_chorus()
+    print(",")
     print("Little Jackie paper loved that rascal puff, ")
     print("And brought him strings and sealing wax and other fancy stuff. oh!")
     print()
 
-    print_chorus(",")
-    print_chorus(".")
+    print_chorus()
+    print(",")
+    print_chorus()
+    print(".")
     print()
 
     print("Together they would travel on a boat with billowed sail")
@@ -46,8 +47,10 @@ def main():
            "name. oh!")
     print()
 
-    print_chorus(",")
-    print_chorus(".")
+    print_chorus()
+    print(",")
+    print_chorus()
+    print(".")
     print()
 
     print("Dragons live forever but not so little boys")
@@ -62,8 +65,10 @@ def main():
     print("So puff that mighty dragon sadly slipped into his cave. oh!")
     print()
 
-    print_chorus(",")
-    print_chorus(".")
+    print_chorus()
+    print(",")
+    print_chorus()
+    print(".")
     print()
 
 if __name__ == "__main__":
