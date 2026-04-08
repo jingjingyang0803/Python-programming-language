@@ -14,30 +14,40 @@ Learning Goals:
  the number of repetitions in advance (while).
 """
 
-def main():
+def print_chorus(end_mark):
+    """
+    Prints the chorus of "Puff, the Magic Dragon" with a custom ending mark.
+
+    Parameters:
+        end_mark (str): The punctuation mark to end the second line (e.g.,
+         '.' or ',')
+
+    Returns:
+        None
+    """
     print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee,")
+    print("And frolicked in the autumn mist in a land called Honah Lee" +
+           end_mark)
+
+def main():
+    print_chorus(",")
     print("Little Jackie paper loved that rascal puff, ")
     print("And brought him strings and sealing wax and other fancy stuff. oh!")
     print()
 
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee,")
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee.")
+    print_chorus(",")
+    print_chorus(".")
     print()
 
     print("Together they would travel on a boat with billowed sail")
     print("Jackie kept a lookout perched on puffs gigantic tail,")
     print("Noble kings and princes would bow whene'r they came,")
-    print(
-        "Pirate ships would lower their flag when puff roared out his name. oh!")
+    print("Pirate ships would lower their flag when puff roared out his "
+           "name. oh!")
     print()
 
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee,")
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee.")
+    print_chorus(",")
+    print_chorus(".")
     print()
 
     print("Dragons live forever but not so little boys")
@@ -52,10 +62,8 @@ def main():
     print("So puff that mighty dragon sadly slipped into his cave. oh!")
     print()
 
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee,")
-    print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee.")
+    print_chorus(",")
+    print_chorus(".")
     print()
 
 if __name__ == "__main__":
