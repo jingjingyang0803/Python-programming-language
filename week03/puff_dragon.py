@@ -16,7 +16,7 @@ Learning Goals:
 
 def print_chorus():
     """
-    Prints the chorus of "Puff, the Magic Dragon" without ending mark.
+    Prints the chorus of "Puff, the Magic Dragon"
 
     Parameters:
         None
@@ -25,20 +25,19 @@ def print_chorus():
         None
     """
     print("Puff, the magic dragon lived by the sea")
-    print("And frolicked in the autumn mist in a land called Honah Lee", end="")
+    print("And frolicked in the autumn mist in a land called Honah Lee,")
+    print("Puff, the magic dragon lived by the sea")
+    print("And frolicked in the autumn mist in a land called Honah Lee.")
+    print()
 
 def main():
-    print_chorus()
-    print(",")
+    print("Puff, the magic dragon lived by the sea")
+    print("And frolicked in the autumn mist in a land called Honah Lee,")
     print("Little Jackie paper loved that rascal puff, ")
     print("And brought him strings and sealing wax and other fancy stuff. oh!")
     print()
 
     print_chorus()
-    print(",")
-    print_chorus()
-    print(".")
-    print()
 
     print("Together they would travel on a boat with billowed sail")
     print("Jackie kept a lookout perched on puffs gigantic tail,")
@@ -48,10 +47,6 @@ def main():
     print()
 
     print_chorus()
-    print(",")
-    print_chorus()
-    print(".")
-    print()
 
     print("Dragons live forever but not so little boys")
     print("Painted wings and giant strings make way for other toys.")
@@ -66,10 +61,6 @@ def main():
     print()
 
     print_chorus()
-    print(",")
-    print_chorus()
-    print(".")
-    print()
 
 if __name__ == "__main__":
     main()
