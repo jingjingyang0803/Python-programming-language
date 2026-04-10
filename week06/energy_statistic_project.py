@@ -2,10 +2,11 @@
 COMP.CS.100 Programming 1.
 Name:       Jingjing Yang
 Email:      jingjing.yang@tuni.fi
-Student Id: 154016843
+Student id: 154016843
 
 6.2 - Project: Energy statistic:
- A program printing energy cunsumption histograms based on the data the
+
+A program printing energy consumption histograms based on the data the
   user entered. The energy consumption values will be divided into classes
   based on a logarithmic scale.
 
@@ -72,7 +73,7 @@ def read_input():
         if user_input == "":
             break
 
-        value = int(user_input) # Assume all input are integers for simplicity.
+        value = int(user_input)  # Assume all inputs are integers
 
         # If the user input is negative, print an error message and
         # ask for input again.
@@ -96,6 +97,8 @@ def class_minimum_value(class_number):
     :return: int
         The smallest value of the class with the given <class_number>.
     """
+    # For class 1 the minimum is 0, for class 2 it is 10,
+    # for class 3 it is 100, and so on.
     smallest_value = 10 ** class_number // 100 * 10
     return smallest_value
 
@@ -110,7 +113,7 @@ def class_maximum_value(class_number):
     :return: int
         The largest value of the class with the given <class_number>.
     """
-    largest_value  = 10 ** class_number - 1
+    largest_value = 10 ** class_number - 1
     return largest_value
 
 
@@ -119,7 +122,7 @@ def get_class_number(value):
     Returns the class number the given value belongs to.
 
     :param value: int
-        The value to check
+        The value to check.
 
     :return: int
         The class number the given value belongs to.
@@ -128,7 +131,7 @@ def get_class_number(value):
     while True:
         if (class_minimum_value(class_number) <= value <=
                  class_maximum_value(class_number)):
-           return class_number
+            return class_number
         class_number += 1
 
 
@@ -142,15 +145,15 @@ def get_class_counts(data):
     :return: list of int
         Counts of how many values in the given data belong to each class.
         The value at index n of the returned list is the count of values
-        belonging to class n.
+        belonging to class n. Index 0 is unused.
     """
     # Calculate the number of classes needed to cover all the values in the
     # input data.
     number_of_categories = get_class_number(max(data))
 
     # Initialize the class counts list with zeros.
-    # The class numbers start from 1(0-9), so we need to add 1 to the
-    # number of categories to have enough
+    # The class numbers start from 1 (values 0-9), so we need to add 1
+    # to the number of categories to have enough space in the list.
     class_counts = [0] * (number_of_categories + 1)
 
     # For each value in the input data, determine which class it belongs to
@@ -180,7 +183,7 @@ def print_single_histogram_line(class_number, count, largest_class_number):
         the user entered. This is needed when deciding the indentations
         for all other histogram lines.  For example, if the largest
         number the user entered was 91827364 (8 digits) the value
-        of this paramter should be 8.
+        of this parameter should be 8.
     """
 
     # <range_string> represents the range of the values the line's
@@ -212,6 +215,7 @@ def print_single_histogram_line(class_number, count, largest_class_number):
 def print_histogram(data):
     """
     Prints the histogram of the energy consumption values in the given data.
+    Empty classes between class 1 and the largest class are also printed.
 
     :param data: list of int
         The energy consumption values entered by the user.
