@@ -21,20 +21,10 @@ def are_all_members_same(some_list):
     :return: True if all the members contained by the list are the same,
      False otherwise.
     """
-    # If the list is empty, we can consider that all the members contained
-    # by the list are the same, so we return True.
-    all_same = True
-    # Otherwise, we compare each member with the previous one, if we find a
-    # member that is different from the previous one, we can consider that
-    # not all the members contained by the list are the same, so we return
-    # False.
-    if len(some_list) != 0:
-        for i in range(1, len(some_list)):
-            if some_list[i] != some_list[i - 1]:
-                all_same = False
-                break
-
-    return all_same
+    for i in range(len(some_list) - 1):
+        if some_list[i] != some_list[i + 1]:
+            return False
+    return True
 
 
 def main():
