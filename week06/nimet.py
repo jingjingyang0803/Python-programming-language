@@ -32,15 +32,14 @@ def reverse_name(name):
     """
     parts = name.split(",")  # Split the name into parts using comma as a separator
     if len(parts) == 2:
-        first_name = parts[1].strip()  # Get the first name and remove extra whitespace
-        last_name = parts[0].strip()  # Get the last name and remove extra whitespace
-        if len(first_name) > 0 and len(last_name) > 0:
-            return first_name+" "+last_name  # Print the names in correct order
-        elif len(first_name) > 0:
-            return first_name  # If there is no last name, print only the first name
-        elif  len(last_name) > 0:
-            return last_name  # If there is no first name, print only the last name
-        return ""  # If both first name and last name are empty, return an empty string
+        # Get the first name and remove extra whitespace
+        first_name = parts[1].strip()
+        # Get the last name and remove extra whitespace
+        last_name = parts[0].strip()
+
+        # Combine first and last name with a space and remove any extra
+        # whitespace
+        return (first_name + " " + last_name).strip()
     else:
         return name.strip()  # If there is no comma, print the name as
                              # is (after stripping whitespace)
