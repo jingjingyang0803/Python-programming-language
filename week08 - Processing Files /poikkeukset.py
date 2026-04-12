@@ -10,16 +10,21 @@ Learning Goals:
 def read_input(prompt_text):
     """
     Reads input from the user.
+
     Parameters:
         prompt_text: the prompt text to be shown to the user
+
     Returns:
         The input read from the user, as an integer greater than zero.
     """
-    user_input = 0
-    while user_input <= 0:
-        user_input = int(input(prompt_text))
-    return user_input
-
+    while True:
+        user_input = input(prompt_text)
+        try:
+            value = int(user_input)
+            if value > 0:
+                return value
+        except ValueError:
+            pass
 
 def print_box(width, height, mark):
     """
