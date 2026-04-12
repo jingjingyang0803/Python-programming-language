@@ -15,7 +15,8 @@ def main():
         file=open(file_name, mode="r")
         i=1
         for line in file:
-            print(i,line.rstrip())
+            print(i,line.rstrip())  # get rid of the newline character at
+                                    # the end of the line with rstrip()
             i+=1
 
     except IOError:
