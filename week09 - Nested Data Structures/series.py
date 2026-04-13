@@ -10,12 +10,18 @@ Learning Goals:
 
 def read_file(filename):
     """
-    Reads and saves the series and their genres from the file.
+    Reads and saves the data of a file in format name;genre1,genre2,...,genreN
+     into a  dictionary where the genres are the keys and the series names
+     are the values.
 
-    TODO: comment the parameter and the return value.
+    :param filename: the name of the file to read
+
+     :return: a dictionary with the genres as keys and the series names of
+     as values
     """
 
-    # TODO initialize a new data structure
+    # initialize a new data structure
+    genre_name = {}
 
     try:
         file = open(filename, mode="r")
@@ -28,18 +34,24 @@ def read_file(filename):
             # If we know that a function (method split in this case)
             # returns a list containing two elements, we can assign
             # names for those elements as follows:
-            name, genres = row.rstrip().split(";")
+            try:
+                name, genres = row.rstrip().split(";")
 
-            genres = genres.split(",")
+                genres = genres.split(",")
 
-            # TODO add the name and genres data to the data structure
+                # add the show name to the list of shows for each genre
+                for genre in genres:
+                    if genre in genre_name:
+                        genre_name[genre].append(name)
+                    else:
+                        genre_name[genre] = [name]
+
+            except ValueError:
+                print("Error: rows were not in the format name;genres.")
+                return None
 
         file.close()
-        return  # TODO return the data structure
-
-    except ValueError:
-        print("Error: rows were not in the format name;genres.")
-        return None
+        return  genre_name  # return the data structure
 
     except IOError:
         print("Error: the file could not be read.")
@@ -51,7 +63,15 @@ def main():
 
     genre_data = read_file(filename)
 
-    # TODO print the genres
+    # if the data could not be read, exit the program
+    if genre_data is None:
+        return
+
+    # print the available genres in alphabetical order
+    genre_list=[]
+    for genre in sorted(genre_data.keys()):
+        genre_list.append(genre)
+    print("Available genres are:", ", ".join(genre_list))
 
     while True:
         genre = input("> ")
@@ -59,7 +79,11 @@ def main():
         if genre == "exit":
             return
 
-        # TODO print the series belonging to a genre.
+        # print the series belonging to a genre line by line in alphabetical
+        # order only if the input genre has been found in the data
+        if genre in genre_list:
+            for name in sorted(genre_data[genre]):
+                    print(name)
 
 
 if __name__ == "__main__":
