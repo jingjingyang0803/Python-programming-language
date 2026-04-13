@@ -181,6 +181,7 @@ def add_friendship(network, name1, name2):
     if name2 not in network:
         network[name2] = []
 
+    # Add the friendship(both directions) if it is not already present.
     if name2 not in network[name1]:
         network[name1].append(name2)
     if name1 not in network[name2]:
@@ -211,6 +212,8 @@ def print_command(network, namelist):
         print("Error: there was extra text after [Pp]rint command.")
         return
 
+    # The names and friends' names are printed in alphabetical order with
+    # required format.
     for person in sorted(network):
         print(person)
         for friend in sorted(network[person]):
@@ -296,6 +299,8 @@ def friends_command(network, namelist):
         print(f"Error: '{name}' is an unknown name.")
         return
 
+    # Print the friends of the person in alphabetical order with required
+    # format.
     for friend in sorted(network[name]):
         print(friend)
 
@@ -351,6 +356,8 @@ def common_friends_command(network, namelist):
 
     if len(common_friends) == 0:
         print(f"{name1} and {name2} have no common friends.")
+    # Print the common friends(if any) in alphabetical order with required
+    # format.
     else:
         for friend in sorted(common_friends):
             print(friend)
