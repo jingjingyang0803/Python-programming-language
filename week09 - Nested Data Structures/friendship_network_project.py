@@ -7,15 +7,12 @@ Student id: 154016843
 9.9 --- Project: Friendship Network
  A tool program for analyzing friendship networks.
 
-
 Learning Goals:
 I learn to combine datastructures and choose the datastructure that is
   most appropriate for the implementation.
 I will also learn to read and understand somewhat longer piece of code (
  i.e. the code template) which someone else has written.
 """
-
-
 
 DEFAULT_FILENAME = "friendships.txt"
 
@@ -174,7 +171,8 @@ def add_friendship(network, name1, name2):
     # anyway, just in case.
     for name in [ name1, name2 ]:
         if not name.isalpha():
-            print("Error: '{name}' is not a valid name: friendship not added.")
+            print(f"Error: '{name}' is not a valid name: friendship not "
+                  f"added.")
             return
 
     # DONE: Implement a sanity check here to make sure no one
@@ -340,7 +338,7 @@ def common_friends_command(network, namelist):
     """
 
     if len(namelist) != 2:
-        print("[Cc]ommon command requires exactly two names.")
+        print("Error: [Cc]ommon command requires exactly two names.")
         return
 
     for name in namelist:
