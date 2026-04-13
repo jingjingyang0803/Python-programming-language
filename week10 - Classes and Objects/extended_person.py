@@ -9,6 +9,7 @@ Also, implement the method move which can be used to change the person's
 Finally, update the printout method so that when the given main is
   exceuted the information printed will look like:
 
+
 Learning Goals:
  I will practise adding methods and attributes to a class.
 """
@@ -17,19 +18,22 @@ class Person:
     This class models a person with a simple electronic wallet.
     """
 
-    def __init__(self, name, initial_money):
+    def __init__(self, name, initial_money, address):
         """
         A person object is initialized with the name and
-        the initial amount of money in the wallet.
+        the initial amount of money in the wallet. Also,
+        the address of the person.
 
         :param name: str, the name of the person whose
             spending the object is following.
         :param initial_money: float, how much money will
             there be in the wallet at the point of creation.
+        :param address: str, the address of the person.
         """
 
         self.__name = name
         self.__money = initial_money
+        self.__address = address
 
     def printout(self):
         """
@@ -41,6 +45,7 @@ class Person:
         print("—" * 25)
         print("Name:   ", self.__name)
         print("Wealth: ", self.__money)
+        print("Address:", self.__address)
 
     def add_money(self, amount):
         """
@@ -72,6 +77,15 @@ class Person:
             print("You can't afford that.")
         else:
             self.__money -= price
+
+    def move(self, new_address):
+        """
+        This method is used to change the person's address.
+
+        :param new_address: str, the new address of the person.
+        """
+
+        self.__address = new_address
 
 
 def main():
