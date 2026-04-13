@@ -29,14 +29,64 @@ class Car:
         self.__tank_volume = tank_size
         self.__consumption = gas_consumption
 
-        # TODO:
-        # create and initialize the rest of the attributes.
+        # Initialize the amount of gas in the car's tank and
+        # the number of kilometers in the car's odometer.
+        # Tank is empty and the odometer shows a zero when the car is created.
+        self.__gas=0.0
+        self.__odometer = 0.0
+
+    def get_tank_volume(self):
+        return self.__tank_volume
+    def get_consumption(self):
+        return self.__consumption
+    def get_gas(self):
+        return self.__gas
+    def get_odometer(self):
+        return self.__odometer
+
+    def set_tank_volume(self, tank_size):
+        if tank_size < 0:
+            raise ValueError("Tank size must be positive")
+        else:
+            self.__tank_volume = tank_size
+    def set_consumption(self, gas_consumption):
+        if gas_consumption < 0:
+            raise ValueError("Gas consumption must be positive")
+        else:
+            self.__consumption = gas_consumption
+
+    def fill_gas(self,amount):
+        if amount < 0:
+            print("You cannot remove gas from the tank")
+        elif amount < self.__tank_volume - self.__gas:
+            self.__gas += amount
+        else:
+            self.__gas = self.__tank_volume
 
 
-    # TODO:
-    # Add the definitions of all methods of this class here.
-    # The methods are a part of the class. Therefore, they are intended on
-    # this level (i.e. inside the class definition).
+
+    def drive(self,distance):
+        if distance < 0:
+            raise ValueError("Distance must be positive")
+        else:
+            gas_needed = distance * self.__consumption / 100
+            # If the car does not have enough gas to drive the whole
+            # distance, it drives as far as it can with the remaining gas
+            # and then stops.
+            if gas_needed > self.__gas:
+                distance_driven = self.__gas * 100 / self.__consumption
+                self.__odometer += distance_driven
+                self.__gas = 0.0
+            else:
+                self.__odometer += distance
+                self.__gas -= gas_needed
+
+
+    def print_information(self):
+        print(f"The tank contains {self.__gas:.1f} liters of gas and the "
+              f"odometer "
+              f"shows {self.__odometer:.1f} kilometers.")
+
 
     # When printing the car status, use the following f-string to make
     # sure the printout is in the correct format to pass the automated tests:
@@ -75,14 +125,14 @@ def main():
         if choice == "1":
             to_fill = read_number("How many liters of gas to fill up?")
 
-            # TODO:
             # call the fill-method for the car-object here (task b)
+            car.fill_gas(to_fill)
 
         elif choice == "2":
             distance = read_number("How many kilometers to drive?")
 
-            # TODO:
             # call the drive-method for the car-object here (task c)
+            car.drive(distance)
 
         elif choice == "3":
             print("Thank you and bye!")
