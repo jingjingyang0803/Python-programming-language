@@ -32,11 +32,7 @@ def read_friendship_network(filename):
     :return: The data structure containing the friendship network
              information or None in the case of an error.
     """
-
-    # DONE: Initialize a variable named "network" here.
-    #       It will be the variable which contains all the
-    #       relevant information concerning the friendships
-    #       when used later in the program.
+    # Initialize a dictionary to store the friendship network.
     network = {}
 
     ###################################################
@@ -175,15 +171,11 @@ def add_friendship(network, name1, name2):
                   f"added.")
             return
 
-    # DONE: Implement a sanity check here to make sure no one
-    #       can be added as his or her own friend.
+    # A person cannot be added as their own friend.
     if name1 == name2:
         return
 
-    # DONE: Add information about <name1> being <name2>'s friend and
-    #       <name2> being <name1>'s friend into the parameter data
-    #       structure <network>.  Note: if <name1> and <name2> are
-    #       already known to be friends, nothing needs to be done.
+    # Add missing names to the network before storing the friendship.
     if name1 not in network:
         network[name1] = []
     if name2 not in network:
@@ -219,8 +211,6 @@ def print_command(network, namelist):
         print("Error: there was extra text after [Pp]rint command.")
         return
 
-    # DONE: Print the information of all friendships in the order
-    #       and format shown in the project instructions.
     for person in sorted(network):
         print(person)
         for friend in sorted(network[person]):
@@ -302,16 +292,10 @@ def friends_command(network, namelist):
         print(f"Error: {name} is not a valid name.")
         return
 
-    # DONE: Check if <name> is an unknown person. If so print an error
-    #       message and stop.  The error message should be printed as follows:
-    #
-    #           print(f"Error: '{name}' is an unknown name.")
     if name not in network:
         print(f"Error: '{name}' is an unknown name.")
         return
 
-    # DONE: Print <name>'s friends in alphabetical order as
-    #       described in the project instructions.
     for friend in sorted(network[name]):
         print(friend)
 
@@ -347,11 +331,6 @@ def common_friends_command(network, namelist):
             return
 
     for name in namelist:
-        # DONE: Check if <name> is an unknown person. If so print
-        #       an error message and stop.  The error message should
-        #       be printed as follows:
-        #
-        #           print(f"Error: '{name}' is an unknown name.")
         if name not in network:
             print(f"Error: '{name}' is an unknown name.")
             return
@@ -359,24 +338,13 @@ def common_friends_command(network, namelist):
     name1 = namelist[0]
     name2 = namelist[1]
 
-    # DONE: Just as a matter of common sense, let's agree that a person
-    #       does not have common friends with him/herself.  Check this
-    #       and if so print a message and stop.  The message should
-    #       be printed in the following format:
-    #
-    #           print(f"{name1} has no common friends with him/herself.")
     if name1 == name2:
         print(f"{name1} has no common friends with him/herself.")
         return
 
-    # DONE: Find the common friends of <name1> and <name2>
-    #       and print them on the screen in an alphabetical order.
-    #       If <name1> and <name2> do not have common friends,
-    #       print instead an error message:
-    #
-    #         print(f"{name1} and {name2} have no common friends.")
     common_friends = []
 
+    # Collect friends that belong to both people.
     for friend in network[name1]:
         if friend in network[name2]:
             common_friends.append(friend)
