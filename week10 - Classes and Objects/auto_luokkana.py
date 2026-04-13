@@ -35,26 +35,6 @@ class Car:
         self.__gas=0.0
         self.__odometer = 0.0
 
-    def get_tank_volume(self):
-        return self.__tank_volume
-    def get_consumption(self):
-        return self.__consumption
-    def get_gas(self):
-        return self.__gas
-    def get_odometer(self):
-        return self.__odometer
-
-    def set_tank_volume(self, tank_size):
-        if tank_size < 0:
-            raise ValueError("Tank size must be positive")
-        else:
-            self.__tank_volume = tank_size
-    def set_consumption(self, gas_consumption):
-        if gas_consumption < 0:
-            raise ValueError("Gas consumption must be positive")
-        else:
-            self.__consumption = gas_consumption
-
     def fill_gas(self,amount):
         if amount < 0:
             print("You cannot remove gas from the tank")
@@ -63,11 +43,9 @@ class Car:
         else:
             self.__gas = self.__tank_volume
 
-
-
     def drive(self,distance):
         if distance < 0:
-            raise ValueError("Distance must be positive")
+            print("You cannot travel a negative distance")
         else:
             gas_needed = distance * self.__consumption / 100
             # If the car does not have enough gas to drive the whole
@@ -83,18 +61,11 @@ class Car:
 
 
     def print_information(self):
+        # Print how much gas the car's tank contains and what does the car's
+        # odometer show in one decimal place.
         print(f"The tank contains {self.__gas:.1f} liters of gas and the "
               f"odometer "
               f"shows {self.__odometer:.1f} kilometers.")
-
-
-    # When printing the car status, use the following f-string to make
-    # sure the printout is in the correct format to pass the automated tests:
-    #
-    #    f"The tank contains {:.1f} liters of gas and the odometer shows {:.1f} kilometers."
-    #                         ^                                           ^
-    #
-    # You need to add the correct attributes to points marked with carets "^".
 
 
 def main():
