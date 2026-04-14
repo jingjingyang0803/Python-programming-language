@@ -53,6 +53,19 @@ class Fraction:
 
         return f"{sign}{abs(self.__numerator)}/{abs(self.__denominator)}"
 
+    def simplify(self):
+        """
+        Simplifies the fraction by dividing both the numerator and the
+         denominator by their greatest common divisor.
+        """
+        common_divisor = greatest_common_divisor(self.__numerator,
+                                                 self.__denominator)
+
+        # Update the numerator and denominator
+        # Covert float from division operation into int before assigning
+        self.__numerator = int(self.__numerator / common_divisor)
+        self.__denominator = int(self.__denominator / common_divisor)
+
 
 def greatest_common_divisor(a, b):
     """
@@ -66,3 +79,4 @@ def greatest_common_divisor(a, b):
         a, b = b, a % b
 
     return a
+
