@@ -10,39 +10,59 @@ Learning Goals:
 
 class Character:
     def __init__(self, name):
+        """Initializes the character with a name and an empty inventory."""
         self.name = name
-
         self.items = {}
 
     def get_name(self):
+        """Returns the name of the character.
+        """
         return self.name
 
     def has_item(self, test_item):
+        """Returns True if the character has at least one of the
+          test_item, False otherwise.
+        """
         return test_item in self.items
 
     def how_many(self, test_item):
-        return self.items[test_item]
+        """Returns the number of test_item the character has.
+            If the character does not have any of the test_item, returns 0.
+        """
+        if self.has_item(test_item):
+            return self.items[test_item]
+        else:
+            return 0
 
     def give_item(self, item):
+        """Adds one of the item to the character's inventory.
+        """
         if item not in self.items:
             self.items[item] = 1
         else:
             self.items[item] += 1
 
     def remove_item(self, item):
-        if item not in self.items:
-            print("Item not found.")
-        elif self.items[item] == 0:
-            print("Item can not be removed.")
-        else:
+        """Removes one of the item from the character's inventory.
+        If the character does not have any of the item, does nothing.
+        """
+        if self.has_item(item):
             self.items[item] -= 1
+            # if the count of the item becomes 0, remove the item from the
+            # inventory
             if self.items[item] == 0:
                 self.items.pop(item)
 
     def printout(self):
         print(f"Name: {self.name}")
+        # if there is no item, print message "  --nothing--"
+        if self.items == {}:
+            print("  --nothing--")
+            return
+        # print items in alphabetical order
         for item, count in sorted(self.items.items()):
-            print(count, item)
+            print(f"  {count} {item}")
+
 
 def main():
     character1 = Character("Conan the Barbarian")
