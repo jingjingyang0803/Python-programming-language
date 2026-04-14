@@ -194,8 +194,99 @@ def greatest_common_divisor(a, b):
 
     return a
 
+
+def read_fraction(string):
+    """
+    Reads a fraction from a string. The string must be in the format
+    integer/integer, for example 3/4 or -2/5.
+
+    :param string: str, the string to be read
+
+    :returns: Fraction, the fraction represented by the string
+    """
+
+    # Split the string into two parts using the slash as a separator.
+    # The first part will be the numerator and the second part will be
+    # the denominator.
+    parts = string.split("/")
+
+    if len(parts) != 2:
+        raise ValueError
+
+    # Convert the numerator and denominator from strings to integers.
+    numerator = int(parts[0])
+    denominator = int(parts[1])
+
+    return Fraction(numerator, denominator)
+
+ADD_COMMAND = "add"
+QUIT_COMMAND = "quit"
+PRINT_COMMAND = "print"
+LIST_COMMAND = "list"
+MULTIPLE_COMMAND = "*"
+FILE_COMMAND = "file"
+
 def main():
-    pass
+    valid_commands = [ADD_COMMAND, QUIT_COMMAND, PRINT_COMMAND, LIST_COMMAND,
+                      MULTIPLE_COMMAND, FILE_COMMAND]
+    fractions = {}
+    while True:
+        command = input("> ")
+        if command not in valid_commands:
+            print("Unknown command!")
+        elif command == ADD_COMMAND:
+            fraction_line = input("Enter a fraction in the form "
+                                  "integer/integer: ")
+            fraction = read_fraction(fraction_line)
+            name = input("Enter a name: ")
+            fractions[name] = fraction
+
+        elif command == PRINT_COMMAND:
+            name = input("Enter a name: ")
+            if name in fractions:
+                fraction = fractions[name]
+                print(name, "=", fraction)
+            else:
+                print(f"Name {name} was not found")
+
+        elif command == LIST_COMMAND:
+            for name in sorted(fractions):
+                print(name, "=", fractions[name])
+
+        elif command == MULTIPLE_COMMAND:
+            first_fraction_name = input("1st operand: ")
+
+            if first_fraction_name not in fractions:
+                print(f"Name {first_fraction_name} was not found")
+            else:
+                second_fraction_name = input("2nd operand: ")
+
+                if second_fraction_name not in fractions:
+                    print(f"Name {second_fraction_name} was not found")
+                else:
+                    first_fraction = fractions[first_fraction_name]
+                    second_fraction = fractions[second_fraction_name]
+                    result = first_fraction.multiply(second_fraction)
+                    print(first_fraction, "*", second_fraction, "=", result)
+                    result.simplify()
+                    print("simplified", result)
+
+        elif command == FILE_COMMAND:
+            filename = input("Enter the name of the file: ")
+            try:
+                file=open(filename, mode="r")
+                for line in file:
+                    name, fraction_string = line.split("=")
+                    fraction = read_fraction(fraction_string)
+                    fractions[name] = fraction
+            except OSError:
+                print("Error: the file cannot be read.")
+            except ValueError:
+                print("Error: the file cannot be read.")
+
+        elif command == QUIT_COMMAND:
+            print("Bye bye!")
+            break
 
 
 if __name__ == "__main__":
