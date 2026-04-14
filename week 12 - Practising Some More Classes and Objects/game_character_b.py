@@ -14,10 +14,15 @@ class Character:
     he or she can do.
     """
 
-    def __init__(self, name):
-        """Initializes the character with a name and an empty inventory."""
+    def __init__(self, name, hit_points):
+        """Initializes the character with a name and hit_points.
+        The inventory of the character is initialized as an empty dictionary.
+
+        :param name: str, the name of the character.
+        :param hit_points: int, the amount of hit points.
+        """
         self.name = name
-        self.hit_points = 0
+        self.hit_points = hit_points
         self.items = {}
 
     def get_name(self):
@@ -82,8 +87,14 @@ class Character:
         :return: True, if passing the item to target was successful.
                  False, it passing the item failed for any reason.
         """
+        # Check if the item is in self's inventory. If not, return False.
+        if item not in self.items:
+            return False
 
-        # TODO: implementation of the method
+        # Update the item inventory for both self and target.
+        self.remove_item(item)
+        target.give_item(item)
+        return True
 
 
     def attack(self, target, weapon):
@@ -111,11 +122,30 @@ class Character:
         :param target: Character, the target of the attack.
         :param weapon: str, the name of the weapon used in the attack
                        (must be exist as a key in the WEAPONS dict).
+
         :return: True, if attack succeeds.
                  False, if attack fails for any reason.
         """
+        if weapon not in WEAPONS:
+            print(f"Attack fails: unknown weapon \"{weapon}\".")
+            return False
+        if target is self:
+            print(f"Attack fails: {self.get_name()} can't attack "
+                  f"him/herself.")
+            return False
+        if weapon not in self.items:
+            print(f"Attack fails: {self.get_name()} doesn't have \""
+                  f"{weapon}\".")
+            return False
 
-        # TODO: the implementation of the method
+        print(f"{self.name} attacks {target.name} delivering {WEAPONS[weapon]}"
+              f" damage.")
+        target.hit_points -= WEAPONS[weapon]
+
+        # Check if the target is defeated and print the message if so.
+        if target.hit_points <= 0:
+            print(f"{self.name} successfully defeats {target.name}.")
+        return True
 
 
 WEAPONS = {
