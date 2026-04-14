@@ -255,21 +255,21 @@ def main():
 
         elif command == MULTIPLE_COMMAND:
             first_fraction_name = input("1st operand: ")
-
             if first_fraction_name not in fractions:
                 print(f"Name {first_fraction_name} was not found")
-            else:
-                second_fraction_name = input("2nd operand: ")
+                continue
 
-                if second_fraction_name not in fractions:
-                    print(f"Name {second_fraction_name} was not found")
-                else:
-                    first_fraction = fractions[first_fraction_name]
-                    second_fraction = fractions[second_fraction_name]
-                    result = first_fraction.multiply(second_fraction)
-                    print(first_fraction, "*", second_fraction, "=", result)
-                    result.simplify()
-                    print("simplified", result)
+            second_fraction_name = input("2nd operand: ")
+            if second_fraction_name not in fractions:
+                print(f"Name {second_fraction_name} was not found")
+                continue
+
+            first_fraction = fractions[first_fraction_name]
+            second_fraction = fractions[second_fraction_name]
+            result = first_fraction.multiply(second_fraction)
+            print(first_fraction, "*", second_fraction, "=", result)
+            result.simplify()
+            print("simplified", result)
 
         elif command == FILE_COMMAND:
             filename = input("Enter the name of the file: ")
@@ -277,8 +277,9 @@ def main():
                 file=open(filename, mode="r")
                 for line in file:
                     name, fraction_string = line.split("=")
-                    fraction = read_fraction(fraction_string)
+                    fraction = read_fraction(fraction_string.rstrip())
                     fractions[name] = fraction
+                file.close()
             except OSError:
                 print("Error: the file cannot be read.")
             except ValueError:
