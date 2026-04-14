@@ -10,17 +10,14 @@ Learning Goals:
 
 class Character:
     """
-    This class defines what a character is int he game and what
+    This class defines what a character is in the game and what
     he or she can do.
     """
 
-    # TODO:
-    #       Also note, that you have to modify at least
-    #       __init__ and printout methods to conform with
-    #       the new bahavior of the class.
     def __init__(self, name):
         """Initializes the character with a name and an empty inventory."""
         self.name = name
+        self.hit_points = 0
         self.items = {}
 
     def get_name(self):
@@ -64,6 +61,7 @@ class Character:
 
     def printout(self):
         print(f"Name: {self.name}")
+        print(f"Hitpoints: {self.hit_points}")
         # if there is no item, print message "  --nothing--"
         if self.items == {}:
             print("  --nothing--")
