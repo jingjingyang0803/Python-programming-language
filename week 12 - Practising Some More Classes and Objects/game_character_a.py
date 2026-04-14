@@ -9,8 +9,40 @@ Learning Goals:
 """
 
 class Character:
-    # TODO: the class implementation goes here.
+    def __init__(self, name):
+        self.name = name
 
+        self.items = {}
+
+    def get_name(self):
+        return self.name
+
+    def has_item(self, test_item):
+        return test_item in self.items
+
+    def how_many(self, test_item):
+        return self.items[test_item]
+
+    def give_item(self, item):
+        if item not in self.items:
+            self.items[item] = 1
+        else:
+            self.items[item] += 1
+
+    def remove_item(self, item):
+        if item not in self.items:
+            print("Item not found.")
+        elif self.items[item] == 0:
+            print("Item can not be removed.")
+        else:
+            self.items[item] -= 1
+            if self.items[item] == 0:
+                self.items.pop(item)
+
+    def printout(self):
+        print(f"Name: {self.name}")
+        for item, count in sorted(self.items.items()):
+            print(count, item)
 
 def main():
     character1 = Character("Conan the Barbarian")
