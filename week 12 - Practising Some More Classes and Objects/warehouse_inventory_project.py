@@ -67,12 +67,23 @@ class Product:
                self.__name == other.__name and \
                self.__category == other.__category and \
                self.__price == other.__price
+    def get_category(self):
+        """
+        :return str: category
+        """
+        return self.__category
 
     def get_stock(self):
         """
         :return int: stock
         """
         return self.__stock
+
+    def get_price(self):
+        """
+        :return float: price
+        """
+        return self.__price
 
     def modify_stock_size(self, amount):
         """
@@ -421,15 +432,51 @@ def main():
                 warehouse[code].modify_stock_size(amount)
 
         elif "low".startswith(command) and parameters == "":
-            # TODO: Implement low command which can be used to
+            #       Implement low command which can be used to
             #       alert the user when the amount of items
             #       drop below <LOW_STOCK_LIMIT> i.e. 30.
-            ...
+            #      The printing is in ascending order by product code
+            for product in sorted(warehouse):
+                if warehouse[product].get_stock() < LOW_STOCK_LIMIT:
+                    print(warehouse[product])
 
         elif "combine".startswith(command) and parameters != "":
             # TODO: Implement combine command which allows
             #       the combining of two products into one.
-            ...
+            param_error_message = (f"Error: bad parameters '{parameters}' "
+                                   f"for combine command.")
+            try :
+                code1,code2 = parameters.split()
+                code1 = int(code1)
+                code2 = int(code2)
+            except ValueError:
+                print(param_error_message)
+                continue
+
+            if code1 not in warehouse or code2 not in warehouse:
+                print(param_error_message)
+                continue
+            elif code1==code2:
+                print(param_error_message)
+                continue
+
+            product1 = warehouse[code1]
+            product2 = warehouse[code2]
+            category1 = product1.get_category()
+            category2 = product2.get_category()
+            price1 = product1.get_price()
+            price2 = product2.get_price()
+            if category1 != category2:
+                print(f"Error: combining items of different categories "
+                      f"'{category1}' and '{category2}'.")
+            elif price1 != price2:
+                print(f"Error: combining items of different prices "
+                      f"{price1}€ and {price2}€.")
+            else:
+                product1.modify_stock_size(product2.get_stock())
+                product2.modify_stock_size(product1.get_stock()*(-1))
+                delete_product(warehouse, code2)
+
 
         elif "sale".startswith(command) and parameters != "":
             # TODO: Implement sale command which allows the user to set
