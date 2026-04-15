@@ -1,18 +1,12 @@
 """
 COMP.CS.100 Ohjelmointi 1 / Programming 1
-StudentId: Jingjing Yang
-Name:      jingjing.yang@tuni.fi
-Email:     154016843.
+StudentId: 154016843
+Name:      Jingjing Yang
+Email:     jingjing.yang@tuni.fi
 
-TODO
+This program manages a product warehouse. The user can print, delete,
+modify, combine, and discount products stored in a database file.
 """
-
-# +--------------------------------------------------------------+
-# | This template file requires at minimum Python version 3.8 to |
-# | work correctly. If your Python version is older, you really  |
-# | should get yourself a newer version.                         |
-# +--------------------------------------------------------------+
-
 
 LOW_STOCK_LIMIT = 30
 
@@ -22,8 +16,7 @@ class Product:
     This class represent a product i.e. an item available for sale.
     """
 
-    def __init__(self, code, name, category, price, stock,
-                 original_price=None):
+    def __init__(self, code, name, category, price, stock):
         self.__code = code
         self.__name = name
         self.__category = category
@@ -69,24 +62,32 @@ class Product:
                self.__price == other.__price
     def get_category(self):
         """
+        Returns the category of the product.
+
         :return str: category
         """
         return self.__category
 
     def get_stock(self):
         """
+        Returns the stock of the product.
+
         :return int: stock
         """
         return self.__stock
 
     def get_price(self):
         """
+        Returns the price of the product.
+
         :return float: price
         """
         return self.__price
 
     def get_original_price(self):
         """
+        Returns the original price of the product.
+
         :return float: original price
         """
         return self.__original_price
@@ -299,17 +300,14 @@ def example_function_for_example_purposes(warehouse, parameters):
     print("Seems like everything is good.")
     print(f"Parameters are: {code=} and {number=}.")
 
-def delete_product(inventory,code):
+def delete_product(warehouse,code):
     """
-    Deletes the product from the inventory.
-    It does not check the value of <inventory>.
+    Removes a product from the warehouse by its code.
 
-    :param inventory: Inventory object
-    :param code: int, product code
-
-    :return: None
+    :param warehouse: dict[int, Product], all products
+    :param code: int, code of the product to remove
     """
-    del inventory[code]
+    del warehouse[code]
 
 def main():
     filename = input("Enter database name: ")
@@ -441,7 +439,7 @@ def main():
                 f"changed as it does not exist."
             )
 
-            if code not in warehouse.keys():
+            if code not in warehouse:
                 print(code_error_message)
             else:
                 warehouse[code].modify_stock_size(amount)
@@ -471,7 +469,7 @@ def main():
             if code1 not in warehouse or code2 not in warehouse:
                 print(param_error_message)
                 continue
-            elif code1==code2:
+            elif code1 == code2:
                 print(param_error_message)
                 continue
 
@@ -489,7 +487,6 @@ def main():
                       f"{price1}€ and {price2}€.")
             else:
                 product1.modify_stock_size(product2.get_stock())
-                product2.modify_stock_size(product1.get_stock()*(-1))
                 delete_product(warehouse, code2)
 
 
@@ -499,7 +496,7 @@ def main():
             param_error_message = (f"Error: bad parameters '{parameters}' "
                                    f"for sale command.")
             try:
-                category, sale_percentage = parameters.split()
+                category, sale_percentage = parameters.rsplit(maxsplit=1)
                 sale_percentage = float(sale_percentage)
             except ValueError:
                 print(param_error_message)
@@ -507,8 +504,9 @@ def main():
 
             if sale_percentage < 0 or sale_percentage > 100:
                 print(param_error_message)
+                continue
 
-            count=0
+            count = 0
             for product in warehouse.values():
                 if product.get_category() == category:
                     discount = (product.get_original_price() *
