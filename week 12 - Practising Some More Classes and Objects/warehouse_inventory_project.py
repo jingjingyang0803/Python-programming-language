@@ -60,6 +60,7 @@ class Product:
                self.__name == other.__name and \
                self.__category == other.__category and \
                self.__price == other.__price
+
     def get_category(self):
         """
         Returns the category of the product.
@@ -300,6 +301,7 @@ def example_function_for_example_purposes(warehouse, parameters):
     print("Seems like everything is good.")
     print(f"Parameters are: {code=} and {number=}.")
 
+
 def delete_product(warehouse,code):
     """
     Removes a product from the warehouse by its code.
@@ -308,6 +310,7 @@ def delete_product(warehouse,code):
     :param code: int, code of the product to remove
     """
     del warehouse[code]
+
 
 def main():
     filename = input("Enter database name: ")
@@ -483,7 +486,7 @@ def main():
                 print(f"Error: combining items of different categories "
                       f"'{category1}' and '{category2}'.")
             elif price1 != price2:
-                print(f"Error: combining items of different prices "
+                print(f"Error: combining items with different prices "
                       f"{price1}€ and {price2}€.")
             else:
                 product1.modify_stock_size(product2.get_stock())
