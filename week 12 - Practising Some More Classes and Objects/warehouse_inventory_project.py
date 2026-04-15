@@ -93,6 +93,10 @@ class Product:
         """
         return self.__original_price
 
+    def set_sale_price(self, percentage):
+        discount = self.__original_price * percentage / 100
+        self.__price = self.__original_price - discount
+
     def modify_stock_size(self, amount):
         """
         YOU SHOULD NOT MODIFY THIS METHOD since read_database
@@ -121,6 +125,7 @@ class Product:
                        positive value increases the price and vice versa.
         """
         self.__price = self.__original_price + amount
+
 
 def _read_lines_until(fd, last_line):
     """
@@ -488,8 +493,7 @@ def handle_sale(warehouse, parameters):
     count = 0
     for product in warehouse.values():
         if product.get_category() == category:
-            discount = product.get_original_price() * sale_percentage / 100
-            product.modify_price(-discount)
+            product.set_sale_price(sale_percentage)
             count += 1
 
     print(f"Sale price set for {count} items.")
