@@ -93,7 +93,12 @@ class Product:
         """
         return self.__original_price
 
-    def set_sale_price(self, percentage):
+    def modify_sale_price(self, percentage):
+        """
+        Sets the current sale price based on the original price.
+
+        :param percentage: float, discount percentage
+        """
         discount = self.__original_price * percentage / 100
         self.__price = self.__original_price - discount
 
@@ -113,18 +118,6 @@ class Product:
         """
 
         self.__stock += amount
-
-    def modify_price(self, amount):
-        """
-        Modifies the price of the product by the given amount.
-        This method does not check the value of <amount> which
-        could lead to a negative price. Caveat emptor.
-
-        :param amount: float, how much to change the price.
-                       Both positive and negative values are accepted:
-                       positive value increases the price and vice versa.
-        """
-        self.__price = self.__original_price + amount
 
 
 def _read_lines_until(fd, last_line):
@@ -309,11 +302,12 @@ def example_function_for_example_purposes(warehouse, parameters):
 
 def handle_print(warehouse, parameters):
     """
-    Handles the print command. If <parameters> is empty, prints all
-     products in the warehouse in ascending order of their codes.
+    Handles the print command.
+    If <parameters> is empty, prints all products in the warehouse in
+    ascending order of their codes.
     Otherwise, <parameters> should be a product code and the corresponding
      product is printed. If the product code does not exist, an error
-      message is printed.
+     message is printed.
 
     :param warehouse: dict[int, Product], all products
     :param parameters: str, all the text that the user entered after the
@@ -343,7 +337,8 @@ def handle_print(warehouse, parameters):
 
 def handle_delete(warehouse, parameters):
     """
-    Handles the delete command. <parameters> should be a product code.
+    Handles the delete command.
+    <parameters> should be a product code.
     If the product code does not exist, an error message is printed.
     If the product exists but has stock remaining, an error message is printed.
     Otherwise, the product is deleted from the warehouse.
@@ -407,8 +402,9 @@ def handle_change(warehouse, parameters):
 
 def handle_low(warehouse):
     """
-    Handles the low command. Prints all products whose stock is below the
-     LOW_STOCK_LIMIT in ascending order of their codes.
+    Handles the low command.
+    Prints all products whose stock is below the LOW_STOCK_LIMIT in
+    ascending order of their codes.
 
     :param warehouse: dict[int, Product], all products
     """
@@ -419,7 +415,8 @@ def handle_low(warehouse):
 
 def handle_combine(warehouse, parameters):
     """
-    Handles the combine command. <parameters> should be two product codes.
+    Handles the combine command.
+    <parameters> should be two product codes.
     If either of the product codes does not exist, an error message is printed.
     If two codes are same, an error message is printed.
     If the two products have different categories or prices, an error
@@ -465,13 +462,13 @@ def handle_combine(warehouse, parameters):
 
 def handle_sale(warehouse, parameters):
     """
-    <parameters> should contain a category name and a sale percentage.
+    Handles the sale command.
+     <parameters> should contain a category name and a sale percentage.
     If the percentage is invalid or outside the range 0-100,
-    an error message is printed.
-
+     an error message is printed.
     If the input is valid, all products in the given category are assigned
-    a new sale price based on their original price. Finally, the number of
-    affected products is printed.
+     a new sale price based on their original price. Finally, the number of
+     affected products is printed.
 
     :param warehouse: dict[int, Product], all products
     :param parameters: str, all the text that the user entered after the
@@ -493,7 +490,7 @@ def handle_sale(warehouse, parameters):
     count = 0
     for product in warehouse.values():
         if product.get_category() == category:
-            product.set_sale_price(sale_percentage)
+            product.modify_sale_price(sale_percentage)
             count += 1
 
     print(f"Sale price set for {count} items.")
