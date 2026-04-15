@@ -22,14 +22,14 @@ class Product:
     This class represent a product i.e. an item available for sale.
     """
 
-    def __init__(self, code, name, category, price, stock):
+    def __init__(self, code, name, category, price, stock,
+                 original_price=None):
         self.__code = code
         self.__name = name
         self.__category = category
         self.__price = price
         self.__stock = stock
-
-        # TODO (MAYBE): You might want to add more attributes here.
+        self.__original_price = price
 
     def __str__(self):
         """
@@ -85,6 +85,12 @@ class Product:
         """
         return self.__price
 
+    def get_original_price(self):
+        """
+        :return float: original price
+        """
+        return self.__original_price
+
     def modify_stock_size(self, amount):
         """
         YOU SHOULD NOT MODIFY THIS METHOD since read_database
@@ -102,8 +108,17 @@ class Product:
 
         self.__stock += amount
 
-    # TODO: Multiple methods need to be written here to allow
-    #       all the required commands to be implemented.
+    def modify_price(self, amount):
+        """
+        Modifies the price of the product by the given amount.
+        This method does not check the value of <amount> which
+        could lead to a negative price. Caveat emptor.
+
+        :param amount: float, how much to change the price.
+                       Both positive and negative values are accepted:
+                       positive value increases the price and vice versa.
+        """
+        self.__price = self.__original_price + amount
 
 def _read_lines_until(fd, last_line):
     """
@@ -441,7 +456,7 @@ def main():
                     print(warehouse[product])
 
         elif "combine".startswith(command) and parameters != "":
-            # TODO: Implement combine command which allows
+            #       Implement combine command which allows
             #       the combining of two products into one.
             param_error_message = (f"Error: bad parameters '{parameters}' "
                                    f"for combine command.")
@@ -479,9 +494,29 @@ def main():
 
 
         elif "sale".startswith(command) and parameters != "":
-            # TODO: Implement sale command which allows the user to set
+            #       Implement sale command which allows the user to set
             #       a sale price for all the products in a specific category.
-            ...
+            param_error_message = (f"Error: bad parameters '{parameters}' "
+                                   f"for sale command.")
+            try:
+                category, sale_percentage = parameters.split()
+                sale_percentage = float(sale_percentage)
+            except ValueError:
+                print(param_error_message)
+                continue
+
+            if sale_percentage < 0 or sale_percentage > 100:
+                print(param_error_message)
+
+            count=0
+            for product in warehouse.values():
+                if product.get_category() == category:
+                    discount = (product.get_original_price() *
+                                sale_percentage/100)
+                    product.modify_price(discount*(-1))
+                    count += 1
+            print(f"Sale price set for {count} items.")
+
 
         else:
             print(f"Error: bad command line '{command_line}'.")
