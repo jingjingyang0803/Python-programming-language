@@ -316,15 +316,31 @@ def main():
             example_function_for_example_purposes(warehouse, parameters)
 
         elif "print".startswith(command) and parameters == "":
-            # TODO: Implement print command which prints all
+            #       Implement print command which prints all
             #       known products in the ascending order of
             #       the product codes.
-            ...
+            for product in sorted(warehouse):
+                print(warehouse[product])
 
         elif "print".startswith(command) and parameters != "":
-            # TODO: Implement print command to print a single
+            #       Implement print command to print a single
             #       product when the product code is given.
-            ...
+            #       If the product code given does not exist,
+            #       an error message should be printed.
+            error_message = (
+                f"Error: product '{parameters}' can not be "
+                f"printed as it does not exist."
+            )
+            try:
+                code = int(parameters)
+            except ValueError:
+                print(error_message)
+                continue
+
+            if code not in warehouse:
+                print(error_message)
+            else:
+                print(warehouse[code])
 
         elif "delete".startswith(command) and parameters != "":
             # TODO: Implement delete command for removing
