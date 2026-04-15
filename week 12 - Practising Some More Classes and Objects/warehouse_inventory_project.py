@@ -68,6 +68,12 @@ class Product:
                self.__category == other.__category and \
                self.__price == other.__price
 
+    def get_stock(self):
+        """
+        :return int: stock
+        """
+        return self.__stock
+
     def modify_stock_size(self, amount):
         """
         YOU SHOULD NOT MODIFY THIS METHOD since read_database
@@ -87,7 +93,6 @@ class Product:
 
     # TODO: Multiple methods need to be written here to allow
     #       all the required commands to be implemented.
-
 
 def _read_lines_until(fd, last_line):
     """
@@ -268,6 +273,17 @@ def example_function_for_example_purposes(warehouse, parameters):
     print("Seems like everything is good.")
     print(f"Parameters are: {code=} and {number=}.")
 
+def delete_product(inventory,code):
+    """
+    Deletes the product from the inventory.
+    It does not check the value of <inventory>.
+
+    :param inventory: Inventory object
+    :param code: int, product code
+
+    :return: None
+    """
+    del inventory[code]
 
 def main():
     filename = input("Enter database name: ")
@@ -343,15 +359,66 @@ def main():
                 print(warehouse[code])
 
         elif "delete".startswith(command) and parameters != "":
-            # TODO: Implement delete command for removing
+            #      Implement delete command for removing
             #       a product from the inventory.
-            ...
+            #      If the product code given does not exist,
+            #       an error message should be printed.
+            #      A product can only be deleted if there is no stock of it
+            #       remaining.
+            #      If there is stock remaining,
+            #       an error message should be printed.
+            param_error_message = (
+                f"Error: product '{parameters}' can not be "
+                f"deleted as it does not exist."
+            )
+            stock_error_message = (
+                f"Error: product '{parameters}' can not be "
+                f"deleted as stock remains."
+            )
+            try:
+                code = int(parameters)
+            except ValueError:
+                print(param_error_message)
+                continue
+
+            if code not in warehouse:
+                print(param_error_message)
+            elif warehouse[code].get_stock() > 0:
+                print(stock_error_message)
+            else:
+                delete_product(warehouse, code)
 
         elif "change".startswith(command) and parameters != "":
-            # TODO: Implement change command which allows
+            #      Implement change command which allows
             #       the user to modify the amount of a product
             #       in stock.
-            ...
+            #      The user should be able to enter two integers
+            #      after the command name: the first one is the product code
+            #      and the second one is the amount by which the stock should
+            #      be changed.
+            #     If the product code given does not exist,
+            #     an error message should be printed.
+            param_error_message = (
+                f"Error: bad parameters '{parameters}' for change command."
+            )
+
+            try:
+                code, amount = parameters.split()
+                code = int(code)
+                amount = int(amount)
+            except ValueError:
+                print(param_error_message)
+                continue
+
+            code_error_message = (
+                f"Error: stock for '{code}' can not be "
+                f"changed as it does not exist."
+            )
+
+            if code not in warehouse.keys():
+                print(code_error_message)
+            else:
+                warehouse[code].modify_stock_size(amount)
 
         elif "low".startswith(command) and parameters == "":
             # TODO: Implement low command which can be used to
