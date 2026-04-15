@@ -302,16 +302,6 @@ def example_function_for_example_purposes(warehouse, parameters):
     print(f"Parameters are: {code=} and {number=}.")
 
 
-def delete_product(warehouse,code):
-    """
-    Removes a product from the warehouse by its code.
-
-    :param warehouse: dict[int, Product], all products
-    :param code: int, code of the product to remove
-    """
-    del warehouse[code]
-
-
 def handle_print(warehouse, parameters):
     """
     Handles the print command. If <parameters> is empty, prints all
@@ -350,7 +340,8 @@ def handle_delete(warehouse, parameters):
     """
     Handles the delete command. <parameters> should be a product code.
     If the product code does not exist, an error message is printed.
-    If the product exists but has stock remaining, an error message is printed. Otherwise, the product is deleted from the warehouse.
+    If the product exists but has stock remaining, an error message is printed.
+    Otherwise, the product is deleted from the warehouse.
 
     :param warehouse: dict[int, Product], all products
     :param parameters: str, all the text that the user entered after the
@@ -374,14 +365,16 @@ def handle_delete(warehouse, parameters):
     elif warehouse[code].get_stock() > 0:
         print(error_stock)
     else:
-        delete_product(warehouse, code)
+        del warehouse[code]
 
 
 def handle_change(warehouse, parameters):
     """
-    Handles the change command. <parameters> should be a product code.
+    Handles the change command.
+    <parameters> should contain a product code and a stock change amount.
+    If the parameters are invalid, an error message is printed.
     If the product code does not exist, an error message is printed.
-
+    Otherwise, the stock is modified by the given amount(negative or positive).
 
     :param warehouse: dict[int, Product], all products
     :param parameters: str, all the text that the user entered after the
@@ -467,19 +460,13 @@ def handle_combine(warehouse, parameters):
 
 def handle_sale(warehouse, parameters):
     """
-    Handles the sale command.
-    <parameters> should be a category(any string) and a sale percentage(float).
-    If the sale percentage is not a real number, an error message is printed.
-    If the sale percentage is invalid(out of range 0-100), an error message is
-     printed.
-    If the sale percentage is valid, the price of all products in the given
-     category is modified according to the sale percentage based on original
-     price and the number of products with price changes on this category is
-     printed.
-    This includes when the category does not exist in the warehouse,
-     in which case the number of products with price changes on this category
-     is 0.
+    <parameters> should contain a category name and a sale percentage.
+    If the percentage is invalid or outside the range 0-100,
+    an error message is printed.
 
+    If the input is valid, all products in the given category are assigned
+    a new sale price based on their original price. Finally, the number of
+    affected products is printed.
 
     :param warehouse: dict[int, Product], all products
     :param parameters: str, all the text that the user entered after the
