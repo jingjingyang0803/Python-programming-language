@@ -455,7 +455,7 @@ def handle_combine(warehouse, parameters):
         return
 
     product1.modify_stock_size(product2.get_stock())
-    delete_product(warehouse, code2)
+    del warehouse[code2]
 
 
 def handle_sale(warehouse, parameters):
