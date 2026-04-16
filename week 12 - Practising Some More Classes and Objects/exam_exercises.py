@@ -1,73 +1,69 @@
 def calculate_price(hours, age):
     """
-    The first parameter value is an integer from 0 to 23 and the second
-     parameter value is a positive integer (≥ 0).
+    Returns the ticket price based on time and passenger age.
 
-    :param hours: time
-    :param age: passenger age
+    :param hours: int, hour of the day (0...23)
+    :param age: int, passenger age (>= 0)
 
-    :return: float,ticket price
+    :return: float, ticket price
     """
-    time_price={"morning":2.7,"evening":3.5,"night":4.0}
-    time=""
     if 6 <= hours <= 17:
-        time="morning"
+        price = 2.7
     elif 18 <= hours <= 22:
-        time = "evening"
+        price = 3.5
     else:
-        time = "night"
+        price = 4.0
 
     if age < 3:
         return 0.0
-    elif age <=15 or age >=65:
-        return time_price[time]-1
+    elif age <= 15 or age >= 65:
+        return price - 1
     else:
-        return time_price[time]
+        return price
 
 
 def count_unique_characters(string):
     """
-    Determines how many of the characters of a string occur in the string
-    only once.
-    Lower-case and upper-case letters are considered as different characters.
+    Counts how many characters occur exactly once in the string.
 
-    :param: string
-    :return: int, the count of unique characters.
+    Lower-case and upper-case letters are considered different.
+
+    :param string: str, the string to examine
+    :return: int, the number of unique characters
     """
-    char_count={}
+    char_count = {}
 
     for char in string:
         if char not in char_count:
-            char_count[char]=0
+            char_count[char] = 0
         char_count[char] += 1
-    unique=0
-    for char in char_count:
-        if char_count[char]==1:
-            unique+=1
-    return unique
+
+    unique_count = 0
+    for count in char_count.values():
+        if count == 1:
+            unique_count += 1
+
+    return unique_count
 
 
 def count_smaller(lst, integer):
     """
-    Counts the integers that are smaller than a specific integer.
+    Counts how many integers in the list are smaller than the given integer.
 
-    :param lst: list, a list
-    :param integer: int, the integer to which the integers in the list are
-                    compared.
+    :param lst: list, a list of integers
+    :param integer: int, the comparison value
 
-    :return: int, the number of smaller integers.
-            Python's None constant is returned,
-            if the first parameter value is the empty list [].
+    :return: int, the number of smaller integers,
+             or None if the list is empty
     """
-    if len(lst)==0:
+    if not lst:
         return None
 
-    i=0
-    count=0
-    while i < len(lst):
-        if lst[i] < integer:
-            count+=1
-        i+=1
+    count = 0
+    for number in lst:
+        if number < integer:
+            count += 1
+
     return count
 
 
@@ -75,7 +71,7 @@ def main():
     print(calculate_price(21, 46))  # 3.5
     print(calculate_price(10, 6))   # 1.7
     print(calculate_price(19, 1))   # 0.0
-    print("="*10)
+    print("=" * 10)
 
     print(count_unique_characters("cat"))       # 3
     print(count_unique_characters("abba"))      # 0
@@ -83,16 +79,16 @@ def main():
     print(count_unique_characters("Aarghhh!"))  # 5
     print(count_unique_characters("x"))         # 1
     print(count_unique_characters(""))          # 0
-    print("="*10)
+    print("=" * 10)
 
-    print(count_smaller([1, 2, 3], 1))                      # 0
-    print(count_smaller([1, 2, 3], 2))                      # 1
-    print(count_smaller([1, 2, 3], 3))                      # 2
-    print(count_smaller([1, 2, 3], 4))                      # 3
-    print(count_smaller([11, 4, -90, -72, -44, 47], 20))    # 5
-    print(count_smaller([42, 13], 100))                     # 2
-    print(count_smaller([13], 42))                          # 1
-    print(count_smaller([], 0))                             # None
+    print(count_smaller([1, 2, 3], 1))                       # 0
+    print(count_smaller([1, 2, 3], 2))                       # 1
+    print(count_smaller([1, 2, 3], 3))                       # 2
+    print(count_smaller([1, 2, 3], 4))                       # 3
+    print(count_smaller([11, 4, -90, -72, -44, 47], 20))     # 5
+    print(count_smaller([42, 13], 100))                      # 2
+    print(count_smaller([13], 42))                           # 1
+    print(count_smaller([], 0))                              # None
 
 
 if __name__ == "__main__":
