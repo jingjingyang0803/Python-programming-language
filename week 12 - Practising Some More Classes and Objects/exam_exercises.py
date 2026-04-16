@@ -48,6 +48,17 @@ def count_unique_characters(string):
 
 
 def count_smaller(lst, integer):
+    """
+    Counts the integers that are smaller than a specific integer.
+
+    :param lst: list, a list
+    :param integer: int, the integer to which the integers in the list are
+                    compared.
+
+    :return: int, the number of smaller integers.
+            Python's None constant is returned,
+            if the first parameter value is the empty list [].
+    """
     if len(lst)==0:
         return None
 
