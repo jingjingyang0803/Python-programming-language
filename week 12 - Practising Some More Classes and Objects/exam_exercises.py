@@ -12,9 +12,9 @@ def calculate_price(hours, age):
     time=""
     if 6 <= hours <= 17:
         time="morning"
-    elif 16 <= hours <= 22:
+    elif 18 <= hours <= 22:
         time = "evening"
-    elif 23 <= hours <= 5:
+    else:
         time = "night"
 
     if age < 3:
