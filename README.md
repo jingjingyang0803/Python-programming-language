@@ -26,9 +26,17 @@ print(f"After a raise, it would be {benefits_after_raise} euros")
 
 ```python
 if not feeling.isdigit():
+    pass
+
+"123".isdigit()     # True ✅
+"12a".isdigit()     # False ❌
+"".isdigit()        # False ❌
+" 123".isdigit()    # False ❌ (space)
 ```
 
 👉 Checks if a string contains only digits (no negatives or decimals!)
+
+Similarly, `isalpha()` → only letters, `isalnum()` → letters OR numbers.
 
 ## 🔹 Important Operators
 
