@@ -426,6 +426,13 @@ text.rstrip()   # remove whitespace from RIGHT (end), often used to remove '\n'
 text.lower()
 text.upper()
 text.casefold()  # convert string to a normalized lowercase form
+text.title()     # capitalize each word
+
+text = "hello world"
+
+print(text.lower())    # hello world
+print(text.upper())    # HELLO WORLD
+print(text.title())    # Hello World
 ```
 
 👉 `casefold()` is best for comparisons
