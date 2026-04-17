@@ -156,6 +156,10 @@ print(f"{value:^10}")  # '   123    '  (center aligned)
 print(f"{value:010d}") # '0000000123'  (fill with 0)
 ```
 
+👉 `d` is used when formatting integers explicitly (decimal format).
+
+👉 Optional, but recommended for clarity and strict type control.
+
 # 📘 Week 03 – Functions
 
 ## 🔹 Swapping / Tuple Assignment
