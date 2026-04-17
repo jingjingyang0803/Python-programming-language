@@ -29,9 +29,8 @@ def reverse_dict(dictionary):
     @return: The reversed dictionary.
     """
     new_dictionary = {}
-    for key in dictionary:
-        value=dictionary[key]
-        new_dictionary[value]=key
+    for key, value in dictionary.items():
+        new_dictionary[value] = key
     return new_dictionary
 
 
