@@ -308,6 +308,54 @@ lst[2:4] = []          # delete slice
 - `ValueError`
 - Index out of range
 
+## 🔹 Initializing a List with Zeros
+
+**Basic way**
+
+```python
+lst = [0] * n
+```
+
+- Creates a list with `n` zeros
+- Fast and commonly used
+
+**Using list comprehension**
+
+```python
+lst = [0 for _ in range(n)]
+```
+
+- `_` means the loop variable is **not used**
+- Good when you need more complex logic later
+
+**Using a loop**
+
+```python
+lst = []
+for _ in range(n):
+    lst.append(0)
+```
+
+- More flexible but longer
+
+### 🔹 About `for _ in`
+
+- `_` is just a variable name
+- Convention: **“value not needed”**
+- Used for repeating actions
+
+### 🔹 Important (nested lists ⚠️)
+
+```python
+matrix = [[0] * n] * n   # ❌ wrong
+```
+
+- Rows are linked (same object)
+
+```python
+matrix = [[0] * n for _ in range(n)]  # ✅ correct
+```
+
 ## ⚠️ Critical Pitfall ⭐
 
 👉 **Do NOT modify a list while iterating over it**
