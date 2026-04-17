@@ -379,6 +379,22 @@ for x in lst:
 
 # 📘 Week 06 – Strings
 
+## 🔹 Empty String is False in Python
+
+so `if not input_string:` is a simple way to check if the string is empty.
+
+```python
+s = ""
+
+if not s:
+    print("Empty")   # ✅ runs
+
+s = "hello"
+
+if s:
+    print("Not empty")   # ✅ runs
+```
+
 ## 🔹 split()
 
 ```python
