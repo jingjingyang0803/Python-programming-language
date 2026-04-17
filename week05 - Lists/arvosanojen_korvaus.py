@@ -23,7 +23,7 @@ def convert_grades(grade_list):
     parameter.
     """
     for i in range(len(grade_list)):
-        if grade_list[i] >= 1 or grade_list[i] >= 5:
+        if 0 < grade_list[i] <= 5:
             grade_list[i] = 6
         elif grade_list[i] == 0:
             grade_list[i] = 0
