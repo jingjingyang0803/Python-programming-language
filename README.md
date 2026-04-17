@@ -586,7 +586,21 @@ d.get("Alice", 0)   # return value for key "Alice", or 0 if key not found (no er
 ```python
 del d["Alice"]        # remove key "Alice" (no return value)
 
-value = d.pop("Bob")  # remove key "Bob" and RETURN its value
+value = d.pop("Bob")
+# remove key "Bob" and return its value
+# raises KeyError if "Bob" does not exist
+
+value = d.pop("Bob", default)
+# remove key "Bob" and return its value
+# if key does not exist, return default (no error)
+# default can be any value
+
+value = d.pop("Bob", None)
+# remove key "Bob" and return its value
+# returns None if "Bob" does not exist (no error)
+
+value = d.pop("Bob", "Not found")
+# returns "Not found" if "Bob" does not exist
 ```
 
 ## 🔹 Sorting dictionary
@@ -610,6 +624,10 @@ def get_value(key):
 
 for k in sorted(numbers, key=get_value):
     print(k)
+
+# Or simplify
+for k in sorted(numbers, key=numbers.get):
+    print(k)
 ```
 
 ### 🔹 Output
@@ -627,6 +645,32 @@ a
 ```
 key=get_value# ✅ correct
 key=get_value()# ❌ wrong
+```
+
+## 🔹 `key` usage
+
+**`key` tells Python how to compare items**
+
+```python
+max(iterable, key=function)
+min(iterable, key=function)
+sorted(iterable, key=function)
+```
+
+### 🔹 Examples
+
+```python
+max(lines, key=len)
+# longest string
+
+min(lines, key=len)
+# shortest string
+
+sorted(lines, key=len)
+# sort by length
+
+max(d, key=d.get)
+# key with largest value in dict
 ```
 
 ## 🔹 Set (important for duplicates)
