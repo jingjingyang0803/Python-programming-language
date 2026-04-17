@@ -67,6 +67,24 @@ if word == "quit":
 for ind in range(0, height - 1):
 ```
 
+## 🔹 `break` vs `continue`
+
+```c
+while True:
+    x = input("Enter number: ")
+
+    if x == "":
+        break
+
+    if int(x) < 0:
+        continue
+
+    print(x)
+```
+
+- `break` → exits the **while** loop completely.
+- `continue` → skips the rest of the current **while** loop iteration and starts the next one.
+
 ## 🔹 range() Examples
 
 **range(start, end, step)**
@@ -85,7 +103,7 @@ print(*range(10, 0, -1))     # 10 9 ... 1
 ### Key rules
 
 - Interval: **[start, end)**
-👉 end is **NOT included**
+  👉 end is **NOT included**
 - Default values: **start = 0, step = 1**
 
 ## 🔹 print formatting
@@ -175,7 +193,7 @@ def add_item(lst=None):  # ✅ safer
         lst = []
     lst.append(1)
     return lst
-    
+
 def add_item(lst=[]):   # ❌ dangerous
     lst.append(1)
     return lst
