@@ -588,6 +588,39 @@ for key in sorted(d):
     print(key, d[key])
 ```
 
+## 🔹 Sorting a dictionary by value (without lambda)
+
+```python
+numbers = {
+    "a": 3,
+    "b": 1,
+    "c": 2
+}
+
+def get_value(key):
+    return numbers[key]
+
+for k in sorted(numbers, key=get_value):
+    print(k)
+```
+
+### 🔹 Output
+
+```
+b
+c
+a
+```
+
+### 🔹 Important rules ⭐
+
+- `key` must be a **function**
+
+```
+key=get_value# ✅ correct
+key=get_value()# ❌ wrong
+```
+
 ## 🔹 Set (important for duplicates)
 
 ```python
