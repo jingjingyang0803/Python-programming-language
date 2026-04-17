@@ -15,33 +15,31 @@ def main():
 
     try:
         file=open(file_name,mode="r")
+        # If the file can not be opened in the read mode
+    except OSError:
+        print("There was an error in reading the file.")
+        return
+
+    try:
         for line in file:
-            try:
-                contestant, score=line.split(" ")
-                try:
-                    score=int(score)
-                    if contestant not in contestant_scores:
-                        contestant_scores[contestant]=score
-                    else:
-                        contestant_scores[contestant]+=score
-                # If the file contains a line where the second string can
-                # not be interpreted as an integer value
-                except ValueError:
-                    print("There was an erroneous score in the file:")
-                    print(score)
-                    return
-            # If the file contains a line that doesn't consist of two
-            # strings separated by (a) space character(s)
-            except ValueError:
+            parts = line.split()
+
+            if len(parts) != 2:
                 print("There was an erroneous line in the file:")
                 print(line)
                 return
 
+            contestant, score = parts
+
+            try:
+                score = int(score)
+            except ValueError:
+                print("There was an erroneous score in the file:")
+                print(score)
+                return
+    finally:
         file.close()
-    # If the file can not be opened in the read mode
-    except OSError:
-        print("There was an error in reading the file.")
-        return
+
 
     # Print the scores of the contestants in alphabetical order.
     print("Contestant score:")
